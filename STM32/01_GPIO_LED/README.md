@@ -4,6 +4,44 @@
 
 2. 配置LED的输出引脚，将PA7和PA6的引脚设置为GPIO_Output，电位设置为High，我的LED为低电平点亮，在未按下按键时，让LED保持高电位熄灭状态
 3. 生成代码、编译和下载： 通过CIDE生成基础的引脚配置代码
-4. 编写按键控制LED代码：
+4. 编写按键控制LED代码： 在用户编写出编写代码，代码如下：
+ while (1)
+  {
+    /* USER CODE END WHILE */
 
+    /* USER CODE BEGIN 3 */       // 本行开始到   USER CODE END 3   结束， 之间的代码是保护区，不会在重新生成时抹掉
+
+	      GPIO_PinState SW1_state;      // 用GPIO_PinState 定义变量，用来储存GPIO读取按键引脚的电平（0或1）
+	  	  SW1_state = HAL_GPIO_ReadPin(GPIOB,  GPIO_PIN_11);
+	  	  	{
+	  	  		  if ( SW1_state == GPIO_PIN_RESET )
+	  	  		  {
+	  	  			  //点亮PA7 低电平
+	  	  			          HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
+	  	  		  }
+	  	  		  else
+	  	  		  {
+	  	  		        //关闭PA7
+	  	  		        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
+	  	  		  } /* USER CODE END WHILE */
+	  	  	 }   // GPIO读取结束
+
+	  	      GPIO_PinState SW2_state;
+	  	      SW2_state = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1);
+	  	      if(SW2_state == GPIO_PIN_RESET)
+	  	         {
+	  	  	       HAL_GPIO_WritePin( GPIOA, GPIO_PIN_6, GPIO_PIN_RESET );
+	  	          }
+	  	      else
+	  	      {
+	  	      	HAL_GPIO_WritePin( GPIOA, GPIO_PIN_6, GPIO_PIN_SET );
+	  	      }
+  /* USER CODE END 3 */
+}
+
+5. 代码中的一些库函数说明
+   GPIO_PinState X  : 利用变量定义函GPIO_PinState定义X
+   HAL_GPIO_ReadPin(x ,y);  :HAL库中的引脚读取函数，将第一个变量 X(GPIOB) 里的 y(GPIO_PIN_11) 引脚电平读取出来，x 一般指GPIO，可以是A、B、C口，y可以是这些口的具体引脚。
+   HAL_GPIO_WritePin(x,y);  :Hal库中的写函数，将某个引脚设置电平，比如(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);  将A口的第7引脚设置低电平
+   
 
