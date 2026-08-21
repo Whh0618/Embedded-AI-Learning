@@ -5,6 +5,7 @@
 2. 配置LED的输出引脚，将PA7和PA6的引脚设置为GPIO_Output，电位设置为High，我的LED为低电平点亮，在未按下按键时，让LED保持高电位熄灭状态
 3. 生成代码、编译和下载： 通过CIDE生成基础的引脚配置代码
 4. 编写按键控制LED代码： 在用户编写出编写代码，代码如下：
+
  while (1)
   {
     /* USER CODE END WHILE */
@@ -36,8 +37,8 @@
 	  	      {
 	  	      	HAL_GPIO_WritePin( GPIOA, GPIO_PIN_6, GPIO_PIN_SET );
 	  	      }
-  /* USER CODE END 3 */
-}
+      /* USER CODE END 3 */
+   }
 
 5. 代码中的一些库函数说明
    GPIO_PinState X  : 利用变量定义函GPIO_PinState定义X
